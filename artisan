@@ -1,0 +1,50 @@
+<?php
+	define('__APP_DIR__', __DIR__);
+
+	require_once __APP_DIR__ . '/vendor/autoload.php';
+	include __APP_DIR__ . '/framework/src/lib.php';
+
+	use Illuminate\Commands\Create;
+	use Illuminate\Commands\Storage;
+	use Illuminate\Commands\Run;
+	use Illuminate\Commands\Help;
+
+	use Exceptions\NotFoundException;
+
+	class Artisan {
+		public function __construct($argv) {
+			if(method_exists( $this, $argv[1] )) {
+					$argv[2] = isset($argv[2]) ? $argv[2] : null;
+					$argv[3] = isset($argv[3]) ? $argv[3] : null;
+					call_user_func_array([$this, $argv[1]], array($argv[2], $argv[3]));
+			} else {
+				throw new NotFoundException("{$argv[1]} command not found.");
+			}
+		}
+
+		private function create($method, $name) {
+			if(isset($method) && isset($name)) {
+				new Create($method, $name);
+			} else {
+				throw new NotFoundException("command not found.");
+			}
+		}
+
+		private function storage($method) {
+			if(isset($method)) {
+				new Storage($method);
+			} else {
+				throw new NotFoundException("command not found.");
+			}
+		}
+
+		private function run() {
+			Run::run();
+		}
+
+		private function help() {
+			Help::help();
+		}
+	}
+
+	new Artisan($argv);

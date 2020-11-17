@@ -1,0 +1,19 @@
+{
+    "name": "baiseiit/baiseiit",
+    "description": "The Baiseiit framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alibek Baiseiit",
+            "email": "alibek.baiseiit@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.0.10",
+        "smarty/smarty": "^3.1",
+        "gabordemooij/redbean": "^5.6"
+    }
+}
